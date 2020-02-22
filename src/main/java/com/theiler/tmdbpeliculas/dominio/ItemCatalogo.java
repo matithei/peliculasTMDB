@@ -1,6 +1,5 @@
 package com.theiler.tmdbpeliculas.dominio;
 
-import java.util.Date;
 import java.util.List;
 
 public class ItemCatalogo {
@@ -15,4 +14,15 @@ public class ItemCatalogo {
     private String posterPath;
 
 
+    public String getTituloLista() {
+        return "Titulo 1";
+    }
+
+    public Float getRatingLista() {
+        return new Float(3.5);
+    }
+
+    public String getFechaLista() {
+        return "12/07/1994";
+    }
 }

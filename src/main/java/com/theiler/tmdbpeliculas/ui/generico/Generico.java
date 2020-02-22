@@ -1,23 +1,20 @@
 package com.theiler.tmdbpeliculas.ui.generico;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.theiler.tmdbpeliculas.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
-import lombok.Data;
+import com.theiler.tmdbpeliculas.R;
 
 
 public class Generico extends Fragment {
@@ -28,6 +25,9 @@ public class Generico extends Fragment {
     private EditText txt_busqueda;
     private Button btn_buscar;
     private String titulo;
+    private ListView lista;
+
+
 
     public static Generico newInstance() {
         Generico generico=new Generico();
@@ -42,9 +42,9 @@ public class Generico extends Fragment {
         this.btn_buscar=v.findViewById(R.id.generico_btn_buscar);
         this.lbl_titulo=v.findViewById(R.id.generico_lbl_titulo);
         this.txt_busqueda=v.findViewById(R.id.generico_txt_buscar);
+        this.lista=v.findViewById(R.id.generico_lista);
         this.lbl_titulo.setText(getTitulo());
         return v;
-
     }
 
     @Override
@@ -52,7 +52,17 @@ public class Generico extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(GenericoViewModel.class);
         this.lbl_titulo.setText(getTitulo());
+        mViewModel.cargarListaInicial(this);
         // TODO: Use the ViewModel
+
+    }
+
+    public ListView getLista() {
+        return lista;
+    }
+
+    public void setLista(ListView lista) {
+        this.lista = lista;
     }
 
     public TextView getLbl_titulo() {
