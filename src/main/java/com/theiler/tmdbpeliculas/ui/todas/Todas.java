@@ -13,20 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.theiler.tmdbpeliculas.R;
+import com.theiler.tmdbpeliculas.ui.generico.Generico;
 
-public class Todas extends Fragment {
+public class Todas extends Generico {
 
     private TodasViewModel mViewModel;
 
     public static Todas newInstance() {
-        return new Todas();
+        Todas todas=new Todas();
+        return todas;
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.todas_fragment, container, false);
+        setTitulo("Series y Peliculas");
+        return super.onCreateView(inflater,container,savedInstanceState);
+       // return inflater.inflate(R.layout.todas_fragment, container, false);
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
