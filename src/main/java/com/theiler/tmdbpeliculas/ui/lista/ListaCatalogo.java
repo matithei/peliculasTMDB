@@ -6,21 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.theiler.tmdbpeliculas.R;
+import com.theiler.tmdbpeliculas.controlador.ControladorTodas;
 import com.theiler.tmdbpeliculas.dominio.ItemCatalogo;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ListaCatalogo extends BaseAdapter {
+public class ListaCatalogo extends BaseAdapter{
 
     protected Activity activity;
-    protected ArrayList<ItemCatalogo> items;
+    protected List items;
+    protected Integer pagina=1;
 
     //costructor en el cual enviaremos informacion
-    public ListaCatalogo(Activity actividad, ArrayList<ItemCatalogo> items) {
+    public ListaCatalogo(Activity actividad, List items) {
         this.activity = actividad;
         this.items = items;
     }
@@ -47,24 +51,39 @@ public class ListaCatalogo extends BaseAdapter {
             LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inf.inflate(R.layout.lista_item_catalogo, null);
         }
-
-        //creamos un objeto de la clase WebsEsTl
-        ItemCatalogo item = items.get(position);
-
-        //Asignamos los recursos a las variable
+        ItemCatalogo item = (ItemCatalogo) items.get(position);
         TextView titulo = (TextView) v.findViewById(R.id.lista_titulo);
         RatingBar ratingBar= v.findViewById(R.id.lista_ratingBar);
         TextView fecha=v.findViewById(R.id.lista_fecha);
-
-        //Enviamos informacion a la vista apartir de la informacion que contenga la clase:
+        ImageView imagen=v.findViewById(R.id.lista_imagen);
         titulo.setText(item.getTituloLista());
+        if(item.getTituloLista().length()>35){
+            titulo.setTextSize(15);
+        }
         ratingBar.setRating(item.getRatingLista());
         fecha.setText(item.getFechaLista());
+       Picasso.with(v.getContext())
+               .load(item.getURLImagenLista())
+                .placeholder(R.drawable.tmdb)
+                .error(R.drawable.tmdb)
+                .into(imagen);
+       if(esFinaldeLaLista(position)){
+            actualizarPagina(pagina);
+       }
 
         return v;
     }
 
-    public void addAll(ArrayList<ItemCatalogo> items){
+    private void actualizarPagina(int pagina) {
+        pagina=pagina+1;
+        ControladorTodas.getInstanciaUnica().actualizar(pagina);
+    }
+
+    private boolean esFinaldeLaLista(int position) {
+        return (position+1)==items.size();
+    }
+
+    public void addAll(List items){
         for (int i= 0; i<items.size(); i++) {
             this.items.add(items.get(i));
         }

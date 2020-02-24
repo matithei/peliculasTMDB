@@ -11,7 +11,7 @@
         android:layout_height="128dp">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/lista_imagen"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -26,7 +26,8 @@
             <TextView
                 android:id="@+id/lista_titulo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
                 android:fontFamily="@font/alegreya_sans_sc_light"
                 android:text="TextView"
                 android:textAlignment="center"
@@ -38,7 +39,8 @@
             <TextView
                 android:id="@+id/lista_fecha"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
@@ -46,12 +48,14 @@
 
             <RatingBar
                 android:id="@+id/lista_ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:clickable="false"
                 android:isIndicator="true"
                 android:numStars="5"
+                android:rating="3"
                 android:stepSize="0.5" />
         </LinearLayout>
 

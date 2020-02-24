@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,17 +10,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            app:srcCompat="@drawable/tmdb"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/generico_lbl_titulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/padding"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:fontFamily="@font/alegreya_sans_sc_light"
             android:text="Titulo"
             android:textAlignment="center"
-            android:textAppearance="@style/titulo" />
+            android:textAppearance="@style/titulo"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -28,22 +38,10 @@
         android:paddingLeft="@dimen/padding"
         android:paddingRight="@dimen/padding">
 
-        <EditText
-            android:id="@+id/generico_txt_buscar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <Button
-            android:id="@+id/generico_btn_buscar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:text="@string/buscar" />
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8" />
 
     </LinearLayout>
 

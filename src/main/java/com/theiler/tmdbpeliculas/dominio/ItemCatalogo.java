@@ -1,28 +1,24 @@
 package com.theiler.tmdbpeliculas.dominio;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.List;
 
-public class ItemCatalogo {
-    private Integer id;
-    private List<Genero> generos; //genre_ids
-    private Long popularity;
-    private Long voteCount;
-    private String backdropPath;
-    private String originalLanguage;
-    private Double voteAverage;
-    private String oreview;
-    private String posterPath;
+public interface ItemCatalogo {
 
 
-    public String getTituloLista() {
-        return "Titulo 1";
-    }
+    public String getTituloLista();
 
-    public Float getRatingLista() {
-        return new Float(3.5);
-    }
+    public Float getRatingLista();
 
-    public String getFechaLista() {
-        return "12/07/1994";
-    }
+    public String getFechaLista();
+
+    public List<PropiedadLista> getPropiedadesLista();
+
+    public String getURLImagenLista();
+
+    public Drawable getImagenDrawable();
+
+    public String getGenerosLista();
+
 }

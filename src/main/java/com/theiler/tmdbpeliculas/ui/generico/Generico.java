@@ -39,9 +39,7 @@ public class Generico extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.generico_fragment, container, false);
-        this.btn_buscar=v.findViewById(R.id.generico_btn_buscar);
         this.lbl_titulo=v.findViewById(R.id.generico_lbl_titulo);
-        this.txt_busqueda=v.findViewById(R.id.generico_txt_buscar);
         this.lista=v.findViewById(R.id.generico_lista);
         this.lbl_titulo.setText(getTitulo());
         return v;
@@ -53,7 +51,7 @@ public class Generico extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(GenericoViewModel.class);
         this.lbl_titulo.setText(getTitulo());
         mViewModel.cargarListaInicial(this);
-        // TODO: Use the ViewModel
+
 
     }
 
