@@ -1,33 +1,43 @@
 package com.theiler.tmdbpeliculas.ui.generico;
 
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.lifecycle.ViewModel;
 
-import com.theiler.tmdbpeliculas.R;
-import com.theiler.tmdbpeliculas.controlador.ControladorTodas;
-import com.theiler.tmdbpeliculas.dominio.Pelicula;
-import com.theiler.tmdbpeliculas.ui.dialog.Dialogo;
+import com.theiler.tmdbpeliculas.ui.lista.ListaCatalogo;
 
-public class GenericoViewModel extends ViewModel {
+public abstract class GenericoViewModel extends ViewModel {
 
 
-    public void cargarListaInicial(final Generico generico) {
-        ControladorTodas controladorTodas=ControladorTodas.getInstanciaUnica();
-        controladorTodas.cargarListaInicial(generico.getActivity(),generico.getLista());
-        generico.getLista().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    public abstract void cargarListaInicial(final Generico generico);
+
+
+    public void setearBuscador(final Generico generico ) {
+        final SearchView search=generico.getSearch();
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Pelicula item=(Pelicula) adapterView.getItemAtPosition(position);
-                item.setImagen(((ImageView)view.findViewById(R.id.lista_imagen)).getDrawable());
-                Dialogo dialogo = new Dialogo(item);
-                dialogo.show(generico.getFragmentManager(), "dialogo");
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.length()>1){
+                    buscar( ((ListaCatalogo)generico.getLista().getAdapter()).getPagina(),newText);
+                    ((ListaCatalogo)generico.getLista().getAdapter()).setPagina(1);
+                    ((ListaCatalogo)generico.getLista().getAdapter()).setTextoBuscar(newText);
+                }else{
+                    ((ListaCatalogo)generico.getLista().getAdapter()).clear();
+                    actualizar(generico);
+                }
+                ((ListaCatalogo)generico.getLista().getAdapter()).setBuscar(newText.length()>1);
+                return true;
             }
         });
     }
 
+    protected abstract void actualizar(Generico generico);
 
-
+    protected abstract void buscar(Integer pagina,String newText);
 }

@@ -7,9 +7,28 @@
 
     <fragment
         android:id="@+id/nav_todas"
-        android:name="com.theiler.tmdbpeliculas.ui.todas.Todas"
-        android:label="TMDB"
+        android:name="com.theiler.tmdbpeliculas.ui.peliculas.Peliculas"
+        android:label="Peliculas"
         tools:layout="@layout/generico_fragment" />
+
+    <fragment
+        android:id="@+id/nav_populares"
+        android:name="com.theiler.tmdbpeliculas.ui.populares.Populares"
+        android:label="Peliculas"
+        tools:layout="@layout/generico_fragment" />
+
+    <fragment
+        android:id="@+id/nav_estrenos"
+        android:name="com.theiler.tmdbpeliculas.ui.estrenos.Estrenos"
+        android:label="Peliculas"
+        tools:layout="@layout/generico_fragment" />
+    <fragment
+        android:id="@+id/nav_series_populares"
+        android:name="com.theiler.tmdbpeliculas.ui.seriesPopulares.SeriesPopulares"
+        android:label="Series"
+        tools:layout="@layout/generico_fragment" />
+
+
 
 
 </navigation>

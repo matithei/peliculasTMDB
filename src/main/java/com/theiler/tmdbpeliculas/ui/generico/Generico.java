@@ -7,27 +7,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.theiler.tmdbpeliculas.R;
 
 
 public class Generico extends Fragment {
 
-    private GenericoViewModel mViewModel;
+    protected GenericoViewModel mViewModel;
 
     private TextView lbl_titulo;
     private EditText txt_busqueda;
     private Button btn_buscar;
     private String titulo;
     private ListView lista;
-
-
+    private SearchView search;
 
     public static Generico newInstance() {
         Generico generico=new Generico();
@@ -41,6 +40,7 @@ public class Generico extends Fragment {
         View v= inflater.inflate(R.layout.generico_fragment, container, false);
         this.lbl_titulo=v.findViewById(R.id.generico_lbl_titulo);
         this.lista=v.findViewById(R.id.generico_lista);
+        this.search=v.findViewById(R.id.generico_search);
         this.lbl_titulo.setText(getTitulo());
         return v;
     }
@@ -48,11 +48,9 @@ public class Generico extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(GenericoViewModel.class);
         this.lbl_titulo.setText(getTitulo());
         mViewModel.cargarListaInicial(this);
-
-
+        mViewModel.setearBuscador(this);
     }
 
     public ListView getLista() {
@@ -95,6 +93,12 @@ public class Generico extends Fragment {
         this.titulo = titulo;
     }
 
+    public SearchView getSearch() {
+        return search;
+    }
 
+    public void setSearch(SearchView search) {
+        this.search = search;
+    }
 
 }

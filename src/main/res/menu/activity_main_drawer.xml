@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_todas"
-            android:icon="?attr/actionModeSelectAllDrawable"
-            android:title="@string/todas" />
-
-    </group>
-
-    <item android:title="Communicate">
+    <item
+        android:title="Peliculas"
+        android:id="@+id/menu_peliculas"
+        app:showAsAction="ifRoom|withText">
         <menu>
-
+            <group>
+                <item
+                    android:id="@+id/nav_todas"
+                    android:icon="@android:drawable/btn_star_big_on"
+                    android:title="@string/masvaloradas" />
+                <item
+                    android:id="@+id/nav_populares"
+                    android:icon="@android:drawable/ic_menu_view"
+                    android:title="@string/populares" />
+                <item
+                    android:id="@+id/nav_estrenos"
+                    android:icon="@android:drawable/ic_menu_upload_you_tube"
+                    android:title="@string/estrenos" />
+            </group>
         </menu>
     </item>
+
+    <item
+        android:title="Series"
+        android:id="@+id/menu_series"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/nav_series_populares"
+                    android:icon="@android:drawable/ic_menu_view"
+                    android:title="@string/populares" />
+
+            </group>
+        </menu>
+    </item>
+
+
 
 </menu>

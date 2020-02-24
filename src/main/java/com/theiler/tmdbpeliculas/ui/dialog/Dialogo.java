@@ -15,7 +15,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.theiler.tmdbpeliculas.R;
+import com.theiler.tmdbpeliculas.controlador.ControladorPeliculas;
+import com.theiler.tmdbpeliculas.controlador.ControladorSeries;
 import com.theiler.tmdbpeliculas.dominio.ItemCatalogo;
+import com.theiler.tmdbpeliculas.dominio.Pelicula;
+import com.theiler.tmdbpeliculas.dominio.Serie;
+import com.theiler.tmdbpeliculas.ui.generico.Generico;
 import com.theiler.tmdbpeliculas.ui.lista.ListaDetalles;
 
 /**
@@ -29,15 +34,17 @@ public class Dialogo extends DialogFragment {
     private ItemCatalogo itemCatalogo;
     private ListView listaDetalles;
     private Button btnSalir;
-
+    private Button btnVideo;
+    private Generico generico;
     public Dialogo() {
         // Required empty public constructor
     }
 
-    public Dialogo(ItemCatalogo itemCatalogo){
-       this.itemCatalogo=itemCatalogo;
-    }
+    public Dialogo(ItemCatalogo itemCatalogo) {
 
+        this.itemCatalogo = itemCatalogo;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +55,7 @@ public class Dialogo extends DialogFragment {
         this.titulo=v.findViewById(R.id.dialogo_titulo);
         this.listaDetalles=v.findViewById(R.id.dialogo_lista);
         this.btnSalir=v.findViewById(R.id.dialogo_btn_salir);
+        this.btnVideo=v.findViewById(R.id.dialogo_btn_video);
         this.titulo.setText(itemCatalogo.getTituloLista());
         this.imagen.setImageDrawable(itemCatalogo.getImagenDrawable());
         return v;
@@ -61,6 +69,18 @@ public class Dialogo extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Dialogo.this.dismiss();
+            }
+        });
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(itemCatalogo instanceof Serie){
+                    ControladorSeries.getInstanciaUnica().verTrailer(itemCatalogo);
+                }
+                else
+                if(itemCatalogo instanceof Pelicula){
+                    ControladorPeliculas.getInstanciaUnica().verTrailer(itemCatalogo);}
+
             }
         });
     }

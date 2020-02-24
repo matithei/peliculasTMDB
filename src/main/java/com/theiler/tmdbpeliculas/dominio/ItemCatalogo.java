@@ -21,4 +21,7 @@ public interface ItemCatalogo {
 
     public String getGenerosLista();
 
+    public boolean isVideo();
+
+    public String getURLVideo();
 }

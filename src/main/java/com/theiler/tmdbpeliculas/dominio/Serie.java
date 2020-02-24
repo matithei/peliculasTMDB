@@ -14,33 +14,29 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Pelicula implements ItemCatalogo {
+public class Serie implements ItemCatalogo{
     @SerializedName("poster_path")
     private String posterPath;
-    @SerializedName("adult")
-    private boolean adult;
     @SerializedName("overview")
     private String overview;
-    @SerializedName("release_date")
-    private String releaseDate;
+    @SerializedName("first_air_date")
+    private String lastAirDate;
     @SerializedName("genre_ids")
     private List<Integer> genreIds = new ArrayList<Integer>();
     @SerializedName("id")
     private Integer id;
-    @SerializedName("original_title")
-    private String originalTitle;
+    @SerializedName("original_name")
+    private String originalName;
     @SerializedName("original_language")
     private String originalLanguage;
-    @SerializedName("title")
-    private String title;
+    @SerializedName("name")
+    private String name;
     @SerializedName("backdrop_path")
     private String backdropPath;
     @SerializedName("popularity")
     private Double popularity;
     @SerializedName("vote_count")
     private Integer voteCount;
-    @SerializedName("video")
-    private Boolean video;
     @SerializedName("vote_average")
     private Double voteAverage;
     //para pasar a la lista al hacer click
@@ -48,7 +44,7 @@ public class Pelicula implements ItemCatalogo {
 
     @Override
     public String getTituloLista() {
-        return getTitle();
+        return getName();
     }
 
     @Override
@@ -58,8 +54,8 @@ public class Pelicula implements ItemCatalogo {
 
     @Override
     public String getFechaLista() {
-        if(getReleaseDate()!=null){
-            return Formato.formatearFecha(getReleaseDate());
+        if(getLastAirDate()!=null){
+            return Formato.formatearFecha(getLastAirDate());
         }
         return null;
 
@@ -70,7 +66,7 @@ public class Pelicula implements ItemCatalogo {
         ArrayList<PropiedadLista> propiedades = new ArrayList<>();
         propiedades.add(new PropiedadLista("Lenguaje Original", getOriginalLanguage()));
         propiedades.add(new PropiedadLista("Lanzamiento",getFechaLista()));
-        propiedades.add(new PropiedadLista("Titulo Original", getOriginalTitle()));
+        propiedades.add(new PropiedadLista("Titulo Original", getOriginalName()));
         propiedades.add(new PropiedadLista("Sinopsis", getOverview()));
         return propiedades;
     }
@@ -92,7 +88,7 @@ public class Pelicula implements ItemCatalogo {
 
     @Override
     public boolean isVideo() {
-        return getVideo();
+        return false;
     }
 
     @Override

@@ -37,6 +37,14 @@
             app:srcCompat="@mipmap/ic_launcher"
             tools:src="@tools:sample/avatars" />
 
+        <Button
+            android:id="@+id/dialogo_btn_video"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vertrailer"
+            android:textColor="@color/colorPrimary" />
+
         <ListView
             android:id="@+id/dialogo_lista"
             android:layout_width="match_parent"

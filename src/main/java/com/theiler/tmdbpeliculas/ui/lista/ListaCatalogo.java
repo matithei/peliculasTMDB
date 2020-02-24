@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.theiler.tmdbpeliculas.R;
-import com.theiler.tmdbpeliculas.controlador.ControladorTodas;
+import com.theiler.tmdbpeliculas.controlador.ControladorPeliculas;
 import com.theiler.tmdbpeliculas.dominio.ItemCatalogo;
 
 import java.util.List;
@@ -22,13 +22,33 @@ public class ListaCatalogo extends BaseAdapter{
     protected Activity activity;
     protected List items;
     protected Integer pagina=1;
+    protected Integer ultimaPagina;
+    protected boolean buscar=false;
+    protected String textoBuscar;
 
-    //costructor en el cual enviaremos informacion
-    public ListaCatalogo(Activity actividad, List items) {
+
+
+    public ListaCatalogo(Activity actividad, List items, Integer ultimaPagina) {
         this.activity = actividad;
         this.items = items;
+        this.ultimaPagina=ultimaPagina;
     }
 
+    public String getTextoBuscar() {
+        return textoBuscar;
+    }
+
+    public void setTextoBuscar(String textoBuscar) {
+        this.textoBuscar = textoBuscar;
+    }
+
+    public List getItems() {
+        return items;
+    }
+
+    public void setItems(List items) {
+        this.items = items;
+    }
     @Override
     public int getCount() {
         return items.size();
@@ -51,7 +71,7 @@ public class ListaCatalogo extends BaseAdapter{
             LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inf.inflate(R.layout.lista_item_catalogo, null);
         }
-        ItemCatalogo item = (ItemCatalogo) items.get(position);
+        final ItemCatalogo item = (ItemCatalogo) items.get(position);
         TextView titulo = (TextView) v.findViewById(R.id.lista_titulo);
         RatingBar ratingBar= v.findViewById(R.id.lista_ratingBar);
         TextView fecha=v.findViewById(R.id.lista_fecha);
@@ -61,22 +81,29 @@ public class ListaCatalogo extends BaseAdapter{
             titulo.setTextSize(15);
         }
         ratingBar.setRating(item.getRatingLista());
-        fecha.setText(item.getFechaLista());
+        if(item.getFechaLista()!=null){fecha.setText(item.getFechaLista());}else{
+            fecha.setVisibility(View.INVISIBLE);
+        }
        Picasso.with(v.getContext())
                .load(item.getURLImagenLista())
                 .placeholder(R.drawable.tmdb)
                 .error(R.drawable.tmdb)
                 .into(imagen);
-       if(esFinaldeLaLista(position)){
+       if(esFinaldeLaLista(position) && !esUltimaPagina()){
             actualizarPagina(pagina);
        }
 
         return v;
     }
 
+    private boolean esUltimaPagina() {
+        System.out.println("Ultima pagina "+getUltimaPagina());
+        return getUltimaPagina()==pagina;
+    }
+
     private void actualizarPagina(int pagina) {
-        pagina=pagina+1;
-        ControladorTodas.getInstanciaUnica().actualizar(pagina);
+        this.pagina=pagina+1;
+        ControladorPeliculas.getInstanciaUnica().actualizar(this);
     }
 
     private boolean esFinaldeLaLista(int position) {
@@ -87,6 +114,44 @@ public class ListaCatalogo extends BaseAdapter{
         for (int i= 0; i<items.size(); i++) {
             this.items.add(items.get(i));
         }
+    }
+
+    public Integer getUltimaPagina() {
+        return ultimaPagina;
+    }
+
+    public void setUltimaPagina(Integer ultimaPagina) {
+        this.ultimaPagina = ultimaPagina;
+    }
+
+    public void clear(){
+        getItems().clear();
+        notifyDataSetChanged();
+    }
+
+    public boolean isBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(boolean buscar) {
+        this.buscar = buscar;
+    }
+
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public Integer getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(Integer pagina) {
+        this.pagina = pagina;
     }
 
 

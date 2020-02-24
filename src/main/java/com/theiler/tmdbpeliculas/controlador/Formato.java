@@ -20,6 +20,6 @@ public class Formato {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        return new Date();
     }
 }
