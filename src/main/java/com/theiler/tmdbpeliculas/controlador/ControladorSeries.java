@@ -6,8 +6,6 @@ import android.widget.ListView;
 import androidx.fragment.app.FragmentActivity;
 
 import com.theiler.tmdbpeliculas.dominio.ItemCatalogo;
-import com.theiler.tmdbpeliculas.dominio.Pelicula;
-import com.theiler.tmdbpeliculas.dominio.RespuestaPeliculasAPI;
 import com.theiler.tmdbpeliculas.dominio.RespuestaSeriesAPI;
 import com.theiler.tmdbpeliculas.dominio.RespuestaVideoAPI;
 import com.theiler.tmdbpeliculas.dominio.Serie;
@@ -15,6 +13,8 @@ import com.theiler.tmdbpeliculas.dominio.Video;
 import com.theiler.tmdbpeliculas.ui.dialog.DialogoVideo;
 import com.theiler.tmdbpeliculas.ui.generico.Generico;
 import com.theiler.tmdbpeliculas.ui.lista.ListaCatalogo;
+import com.theiler.tmdbpeliculas.ui.seriesEstrenos.SeriesEstrenos;
+import com.theiler.tmdbpeliculas.ui.seriesMasValoradas.SeriesMasValoradas;
 import com.theiler.tmdbpeliculas.ui.seriesPopulares.SeriesPopulares;
 
 import java.util.List;
@@ -49,6 +49,12 @@ public class ControladorSeries {
             if(generico instanceof SeriesPopulares){
                 controladorAPI.getSeriesPopulares(listaCatalogo.getPagina(), callbackSeries());
             }
+            if(generico instanceof SeriesMasValoradas){
+                controladorAPI.getSeriesMasValoradas(listaCatalogo.getPagina(), callbackSeries());
+            }
+            if(generico instanceof SeriesEstrenos){
+                controladorAPI.getSeriesEstrenos(listaCatalogo.getPagina(), callbackSeries());
+            }
         }
 
 
@@ -69,33 +75,19 @@ public class ControladorSeries {
     }
 
 
-    public void cargarListaInicial(final Generico generico) {
+    public void cargarListaInicialMasValoradas(final Generico generico) {
         iniciarGenerico(generico);
-        controladorAPI.getPeliculas(1, new Callback<RespuestaPeliculasAPI>() {
-            @Override
-            public void onResponse(Call<RespuestaPeliculasAPI> call, Response<RespuestaPeliculasAPI> response) {
-                List<Pelicula> peliculas = response.body().getResults();
-                Integer ultimaPagina=response.body().getTotalPages();
-                ListaCatalogo listaCatalogo=new ListaCatalogo(activity,peliculas,ultimaPagina);
-                lista.setAdapter(listaCatalogo);
-            }
-
-            @Override
-            public void onFailure(Call<RespuestaPeliculasAPI> call, Throwable t) {
-                Log.e("Error al cargarListaInicial ControladorPeliculas", t.toString());
-            }
-        });
+        controladorAPI.getSeriesMasValoradas(1, callbackListaInicial());
 
     }
 
-    public void cargarListaInicialPopulares(final Generico generico) {
-        iniciarGenerico(generico);
-        controladorAPI.getSeriesPopulares(1, new Callback<RespuestaSeriesAPI>() {
+    private Callback<RespuestaSeriesAPI> callbackListaInicial() {
+        return new Callback<RespuestaSeriesAPI>() {
             @Override
             public void onResponse(Call<RespuestaSeriesAPI> call, Response<RespuestaSeriesAPI> response) {
                 List<Serie> series = response.body().getResults();
-                Integer ultimaPagina=response.body().getTotalPages();
-                ListaCatalogo listaCatalogo=new ListaCatalogo(activity,series,ultimaPagina);
+                Integer ultimaPagina = response.body().getTotalPages();
+                ListaCatalogo listaCatalogo = new ListaCatalogo(activity, series, ultimaPagina);
                 lista.setAdapter(listaCatalogo);
             }
 
@@ -103,27 +95,17 @@ public class ControladorSeries {
             public void onFailure(Call<RespuestaSeriesAPI> call, Throwable t) {
                 Log.e("Error al cargarListaInicial ControladorSeries", t.toString());
             }
-        });
+        };
+    }
 
+    public void cargarListaInicialPopulares(final Generico generico) {
+        iniciarGenerico(generico);
+        controladorAPI.getSeriesPopulares(1, callbackListaInicial());
     }
 
     public void cargarListaInicialEstrenos(final Generico generico) {
         iniciarGenerico(generico);
-        controladorAPI.getPeliculasEstrenos(1, new Callback<RespuestaPeliculasAPI>() {
-            @Override
-            public void onResponse(Call<RespuestaPeliculasAPI> call, Response<RespuestaPeliculasAPI> response) {
-                List<Pelicula> peliculas = response.body().getResults();
-                Integer ultimaPagina=response.body().getTotalPages();
-                ListaCatalogo listaCatalogo=new ListaCatalogo(activity,peliculas,ultimaPagina);
-                lista.setAdapter(listaCatalogo);
-            }
-
-            @Override
-            public void onFailure(Call<RespuestaPeliculasAPI> call, Throwable t) {
-                Log.e("Error al cargarListaInicial ControladorPeliculas", t.toString());
-            }
-        });
-
+        controladorAPI.getSeriesEstrenos(1, callbackListaInicial());
     }
 
     private void iniciarGenerico(Generico generico) {
@@ -150,9 +132,9 @@ public class ControladorSeries {
     }
 
     public void buscar(final Integer pagina, String newText) {
-        controladorAPI.getPeliculasBuscar(pagina, newText, new Callback<RespuestaPeliculasAPI>() {
+        controladorAPI.getSeriesBuscar(pagina, newText, new Callback<RespuestaSeriesAPI>() {
             @Override
-            public void onResponse(Call<RespuestaPeliculasAPI> call, Response<RespuestaPeliculasAPI> response) {
+            public void onResponse(Call<RespuestaSeriesAPI> call, Response<RespuestaSeriesAPI> response) {
                 List list=response.body().getResults();
                 if(pagina==1){((ListaCatalogo)lista.getAdapter()).clear();}
                 ((ListaCatalogo)lista.getAdapter()).addAll(response.body().getResults());
@@ -160,7 +142,7 @@ public class ControladorSeries {
                 ((ListaCatalogo) lista.getAdapter()).notifyDataSetChanged();
             }
             @Override
-            public void onFailure(Call<RespuestaPeliculasAPI> call, Throwable t) {
+            public void onFailure(Call<RespuestaSeriesAPI> call, Throwable t) {
                 Log.e("Error al buscar ControladorPeliculas", t.toString());
             }
         });

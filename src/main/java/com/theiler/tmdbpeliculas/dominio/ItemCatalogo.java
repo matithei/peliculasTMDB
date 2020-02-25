@@ -24,4 +24,10 @@ public interface ItemCatalogo {
     public boolean isVideo();
 
     public String getURLVideo();
+
+    public List<Genero> getGeneros();
+
+    public String getGenerosString();
+
+    public String getGenerosStringComa();
 }

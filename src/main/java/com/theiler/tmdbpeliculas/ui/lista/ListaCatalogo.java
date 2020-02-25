@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.theiler.tmdbpeliculas.R;
 import com.theiler.tmdbpeliculas.controlador.ControladorPeliculas;
+import com.theiler.tmdbpeliculas.controlador.ControladorSeries;
 import com.theiler.tmdbpeliculas.dominio.ItemCatalogo;
+import com.theiler.tmdbpeliculas.dominio.Pelicula;
+import com.theiler.tmdbpeliculas.dominio.Serie;
 
 import java.util.List;
 
@@ -75,6 +78,7 @@ public class ListaCatalogo extends BaseAdapter{
         TextView titulo = (TextView) v.findViewById(R.id.lista_titulo);
         RatingBar ratingBar= v.findViewById(R.id.lista_ratingBar);
         TextView fecha=v.findViewById(R.id.lista_fecha);
+        TextView generos=v.findViewById(R.id.lista_generos);
         ImageView imagen=v.findViewById(R.id.lista_imagen);
         titulo.setText(item.getTituloLista());
         if(item.getTituloLista().length()>35){
@@ -90,8 +94,9 @@ public class ListaCatalogo extends BaseAdapter{
                 .error(R.drawable.tmdb)
                 .into(imagen);
        if(esFinaldeLaLista(position) && !esUltimaPagina()){
-            actualizarPagina(pagina);
+            actualizarPagina(pagina,item);
        }
+       generos.setText(item.getGenerosStringComa());
 
         return v;
     }
@@ -101,9 +106,15 @@ public class ListaCatalogo extends BaseAdapter{
         return getUltimaPagina()==pagina;
     }
 
-    private void actualizarPagina(int pagina) {
+    private void actualizarPagina(int pagina,ItemCatalogo itemCatalogo) {
         this.pagina=pagina+1;
-        ControladorPeliculas.getInstanciaUnica().actualizar(this);
+
+        if(itemCatalogo instanceof Pelicula){
+            ControladorPeliculas.getInstanciaUnica().actualizar(this);
+        }else
+        if(itemCatalogo instanceof Serie){
+            ControladorSeries.getInstanciaUnica().actualizar(this);
+        }
     }
 
     private boolean esFinaldeLaLista(int position) {
@@ -125,8 +136,9 @@ public class ListaCatalogo extends BaseAdapter{
     }
 
     public void clear(){
-        getItems().clear();
-        notifyDataSetChanged();
+        if(getItems()!=null){
+            getItems().clear();
+        }
     }
 
     public boolean isBuscar() {

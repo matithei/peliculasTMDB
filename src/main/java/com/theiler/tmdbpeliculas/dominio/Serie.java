@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 
 import com.google.gson.annotations.SerializedName;
 import com.theiler.tmdbpeliculas.controlador.ControladorAPI;
+import com.theiler.tmdbpeliculas.controlador.ControladorGeneros;
 import com.theiler.tmdbpeliculas.controlador.Formato;
 
 import java.util.ArrayList;
@@ -64,10 +65,11 @@ public class Serie implements ItemCatalogo{
     @Override
     public List<PropiedadLista> getPropiedadesLista() {
         ArrayList<PropiedadLista> propiedades = new ArrayList<>();
-        propiedades.add(new PropiedadLista("Lenguaje Original", getOriginalLanguage()));
+        propiedades.add(new PropiedadLista("Lenguaje Original", Lenguajes.lenguajes.get(getOriginalLanguage())));
         propiedades.add(new PropiedadLista("Lanzamiento",getFechaLista()));
         propiedades.add(new PropiedadLista("Titulo Original", getOriginalName()));
         propiedades.add(new PropiedadLista("Sinopsis", getOverview()));
+        propiedades.add(new PropiedadLista("Generos",getGenerosString()));
         return propiedades;
     }
 
@@ -95,4 +97,45 @@ public class Serie implements ItemCatalogo{
     public String getURLVideo() {
         return getId().toString();
     }
+
+    @Override
+    public List<Genero> getGeneros() {
+        List<Genero> lista=new ArrayList<>();
+        for (Integer i:getGenreIds()) {
+            String genero=ControladorGeneros.getGeneroSerie(String.valueOf(i));
+            if(genero!=null) {
+                if(!genero.equals("null")) {
+                    lista.add(new Genero(String.valueOf(i), genero));
+                }
+            }
+        }
+        return lista;
+    }
+
+    @Override
+    public String getGenerosString() {
+        String generos="";
+        for (Genero g:getGeneros()) {
+            generos=generos+g.getName()+"\n";
+        }
+        return generos;
+    }
+
+    @Override
+    public String getGenerosStringComa() {
+        String generos="";
+        for (Genero g:getGeneros()) {
+
+            if (generos.length() > 0) {
+                generos = generos + ", " + g.getName();
+            } else {
+                generos = generos + g.getName();
+            }
+        }
+
+        return generos;
+    }
+
+
+
 }

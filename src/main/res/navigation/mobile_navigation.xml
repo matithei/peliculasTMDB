@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_todas">
+    app:startDestination="@+id/nav_inicio">
+
+    <fragment
+        android:id="@+id/nav_inicio"
+        android:name="com.theiler.tmdbpeliculas.ui.inicio.Inicio"
+        android:label="Inicio"
+        tools:layout="@layout/inicio_fragment" />
 
     <fragment
         android:id="@+id/nav_todas"
@@ -25,6 +31,18 @@
     <fragment
         android:id="@+id/nav_series_populares"
         android:name="com.theiler.tmdbpeliculas.ui.seriesPopulares.SeriesPopulares"
+        android:label="Series"
+        tools:layout="@layout/generico_fragment" />
+
+    <fragment
+        android:id="@+id/nav_series_mas_valoradas"
+        android:name="com.theiler.tmdbpeliculas.ui.seriesMasValoradas.SeriesMasValoradas"
+        android:label="Series"
+        tools:layout="@layout/generico_fragment" />
+
+    <fragment
+        android:id="@+id/nav_series_estrenos"
+        android:name="com.theiler.tmdbpeliculas.ui.seriesEstrenos.SeriesEstrenos"
         android:label="Series"
         tools:layout="@layout/generico_fragment" />
 

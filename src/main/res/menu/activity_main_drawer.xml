@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+    <item
+        android:title="Inicio"
+        android:id="@+id/menu_inicio"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/nav_inicio"
+                    android:icon="@android:drawable/ic_menu_my_calendar"
+                    android:title="Inicio" />
+            </group>
+        </menu>
+    </item>
 
     <item
         android:title="Peliculas"
@@ -33,9 +46,17 @@
         <menu>
             <group>
                 <item
+                    android:id="@+id/nav_series_mas_valoradas"
+                    android:icon="@android:drawable/btn_star_big_on"
+                    android:title="@string/masvaloradas" />
+                <item
                     android:id="@+id/nav_series_populares"
                     android:icon="@android:drawable/ic_menu_view"
                     android:title="@string/populares" />
+                <item
+                    android:id="@+id/nav_series_estrenos"
+                    android:icon="@android:drawable/ic_menu_view"
+                    android:title="Actuales" />
 
             </group>
         </menu>

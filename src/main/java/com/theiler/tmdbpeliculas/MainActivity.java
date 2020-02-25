@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.theiler.tmdbpeliculas.controlador.ControladorGeneros;
 
 import okhttp3.Cache;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static Cache cache;
+    NavigationView navigationView;
+    NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +29,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_todas,R.id.nav_populares,R.id.nav_estrenos,R.id.nav_series_populares)
+                R.id.nav_todas,R.id.nav_populares,
+                R.id.nav_estrenos,R.id.nav_series_populares,
+                R.id.nav_series_mas_valoradas,R.id.nav_series_estrenos,R.id.nav_inicio)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+         navController= Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         cache = new Cache(getApplicationContext().getCacheDir(), 10 * 1024 * 1024);
+        ControladorGeneros.obtenerGenerosSeries();
+        ControladorGeneros.obtenerGenerosPeliculas();
     }
 
     @Override
@@ -49,5 +56,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void cambiarFragment(int index){
+       navController.navigate(index);
     }
 }

@@ -1,5 +1,6 @@
 package com.theiler.tmdbpeliculas.controlador;
 
+import com.theiler.tmdbpeliculas.dominio.RespuestaGeneroAPI;
 import com.theiler.tmdbpeliculas.dominio.RespuestaPeliculasAPI;
 import com.theiler.tmdbpeliculas.dominio.RespuestaSeriesAPI;
 import com.theiler.tmdbpeliculas.dominio.RespuestaVideoAPI;
@@ -10,6 +11,16 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ServicioAPI {
+
+    @GET("genre/movie/list")
+    Call<RespuestaGeneroAPI> getGenerosPeliculas
+            (@Query("api_key") String apiKey,
+             @Query("language")String language);
+
+    @GET("genre/tv/list")
+    Call<RespuestaGeneroAPI> getGenerosSeries
+            (@Query("api_key") String apiKey,
+             @Query("language")String language);
 
     @GET("movie/top_rated")
     Call<RespuestaPeliculasAPI> getMasPuntuadas
@@ -45,6 +56,27 @@ public interface ServicioAPI {
              @Query("language")String language,
              @Query("page") String pagina);
 
+    @GET("tv/top_rated")
+    Call<RespuestaSeriesAPI>  getSeriesMasValoradas
+            (@Query("api_key") String apiKey,
+             @Query("language")String language,
+             @Query("page") String pagina);
+
+    @GET("tv/on_the_air")
+    Call<RespuestaSeriesAPI>  getSeriesEstrenos
+            (@Query("api_key") String apiKey,
+             @Query("language")String language,
+             @Query("page") String pagina);
+
+
     @GET("tv/{id}/videos")
     Call<RespuestaVideoAPI> getVideoSerie(@Path("id") String id,@Query("api_key") String apiKey);
+
+    @GET("search/tv")
+    Call<RespuestaSeriesAPI> getSeriesBuscar(
+            @Query("api_key") String apiKey,
+            @Query("language") String lenguaje,
+            @Query("page")String pagina,
+            @Query("query") String buscar);
+
 }

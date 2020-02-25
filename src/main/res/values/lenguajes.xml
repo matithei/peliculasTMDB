@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="af">africaans</string>
+    <string name="ar">Arábica</string>
+
+    <string name="az">Azerí (latín)</string>
+
+    <string name="be">Bielorruso</string>
+
+    <string name="bg">búlgaro</string>
+
+    <string name="ca">catalán</string>
+
+    <string name="cs">checo</string>
+
+    <string name="cy">galés</string>
+
+    <string name="da">danés</string>
+
+    <string name="de">alemán</string>
+
+    <string name="dv">Divehi</string>
+
+    <string name="el">griego</string>
+
+    <string name="en">Inglés</string>
+
+    <string name="eo">Esperanto</string>
+    <string name="es">Español</string>
+
+    <string name="et">Estonio</string>
+
+    <string name="eu">vasco</string>
+
+    <string name="fa">Farsi</string>
+
+    <string name="fi">finlandés</string>
+
+    <string name="fo">faroese</string>
+
+    <string name="fr">francés</string>
+
+    <string name="gl">gallego</string>
+
+    <string name="gu">Gujarati</string>
+
+    <string name="he">hebreo</string>
+
+    <string name="hi">No</string>
+
+    <string name="hr">croata</string>
+
+    <string name="hu">húngaro</string>
+
+    <string name="hy">armenio</string>
+
+    <string name="id">indonesio</string>
+
+    <string name="is">islandés</string>
+
+    <string name="it">italiano</string>
+
+    <string name="ja">japonés</string>
+
+    <string name="ka">georgiano</string>
+
+    <string name="kk">Kazajo</string>
+
+    <string name="kn">Kannada</string>
+
+    <string name="ko">coreano</string>
+
+    <string name="kok">Konkani</string>
+
+    <string name="ky">Kirguís</string>
+
+    <string name="lt">lituano</string>
+
+    <string name="lv">letón</string>
+
+    <string name="mi">maorí</string>
+
+    <string name="mk">Macedonia Macedonia</string>
+
+    <string name="mn">mongol</string>
+
+    <string name="mr">Marathi</string>
+
+    <string name="ms">malayo</string>
+
+        <string name="mt">maltés</string>
+
+    <string name="nb">Noruego (Bokm? L)</string>
+
+    <string name="nl">holandés</string>
+
+
+
+    <string name="ns">Sotho del norte</string>
+
+    <string name="pa">punjabi</string>
+
+    <string name="pl">polaco</string>
+
+    <string name="ps">Pashto</string>
+
+    <string name="pt">portugués</string>
+
+
+    <string name="qu">Quechua</string>
+
+    <string name="ro">rumano</string>
+
+    <string name="ru">ruso</string>
+
+    <string name="sa">sánscrito</string>
+
+    <string name="se">Sami (norteño)</string>
+
+    <string name="sk">eslovaco</string>
+
+    <string name="sl">esloveno</string>
+
+    <string name="sq">albanés</string>
+
+    <string name="sv">sueco</string>
+
+    <string name="sw">Ingles</string>
+
+    <string name="syr">Siríaco</string>
+
+    <string name="ta">Tamil</string>
+
+    <string name="te">Telugu</string>
+
+    <string name="th">tailandés</string>
+
+    <string name="tl">Tagalo</string>
+
+    <string name="tn">Tswana</string>
+
+    <string name="tr">turco</string>
+
+    <string name="tt">sarro</string>
+
+    <string name="ts">Tsonga</string>
+    <string name="uk">ucranio</string>
+
+    <string name="ur">Urdu</string>
+
+    <string name="uz">Uzbeco (latín)</string>
+
+    <string name="vi">vietnamita</string>
+
+    <string name="xh">Xhosa</string>
+
+    <string name="zh">chino</string>
+
+    <string name="zu">zulú</string>
+
+
+</resources>
